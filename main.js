@@ -9,7 +9,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Adjust the camera position and field of view to capture the smaller room
-camera.position.set(0, 3, 4.5); 
+camera.position.set(0, 4, 4); 
 camera.lookAt(0, 0, 0);
 
 scene.background = new THREE.Color(0xF5F5DC); // Light yellow background
@@ -22,25 +22,17 @@ directionalLight.shadow.mapSize.width = 1024;
 directionalLight.shadow.mapSize.height = 1024;
 scene.add(directionalLight);
 
+// Add Ambient Light
+const ambientRoomLight = new THREE.AmbientLight(0xff4500, 0.4);
+scene.add(ambientRoomLight);
+
 const lavaLumen = new THREE.PointLight( 0xff4500, 1.2, 10 );
 lavaLumen.position.set( 0, 1.1, 0 );
 scene.add( lavaLumen );
 
-const cheeseGlow = new THREE.PointLight(0xffff99, 0.8, 15);
+const cheeseGlow = new THREE.PointLight(0xffff99, 1.1, 15);
 cheeseGlow.position.set(0, 2, 0);
 scene.add(cheeseGlow);
-
-const mirrorGlow = new THREE.SpotLight(0x0000FF, 1, 100, Math.PI / 4, 0.5, 2);
-mirrorGlow.position.set(0, 2, 0);
-mirrorGlow.target.position.set(0, 0, 0);
-mirrorGlow.castShadow = true;
-scene.add(mirrorGlow);
-
-const spotlightTarget = new THREE.Object3D();
-spotlightTarget.position.set(0, 0, 0); // Position the target at the center
-scene.add(spotlightTarget);
-mirrorGlow.target = spotlightTarget; // Set spotlight's target to the created object
-
 
 // Load Textures
 const textureLoader = new THREE.TextureLoader();
